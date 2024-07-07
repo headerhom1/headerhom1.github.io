@@ -1,0 +1,182 @@
+
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />	
+<meta charset="utf-8">
+<title></title>
+<link rel="icon" href="http://gg.tuogg.cn/tpl/home/images/1.ico" type="image/x-icon">
+<link rel="shortcut icon" href="http://gg.tuogg.cn/tpl/home/images/1.ico" type="image/x-icon">	
+<script type="text/javascript" src="http://gg.tuogg.cn/tpl/home/js/jquery-1.8.3.min.js"></script>
+<script src="http://gg.tuogg.cn/tpl/home/js/common/common.js?v=111"></script>	
+<script src="http://gg.tuogg.cn/tpl/home/js/menu.js"></script>	
+<link rel="stylesheet" type="text/css" href="http://gg.tuogg.cn/tpl/home/css/common.css?v=0121211" />
+<link href="http://gg.tuogg.cn/tpl/home/css/menu.css?v=11" type="text/css" rel="stylesheet">	
+<link href="http://gg.tuogg.cn/tpl/home/css/iconfont.css" type="text/css" rel="stylesheet">		
+<link rel="stylesheet" href="http://gg.tuogg.cn/tpl/home/swiper/dist/css/swiper.min.css">
+<script src="http://gg.tuogg.cn/tpl/home/js/swiper.min.js"></script>			
+</head>
+
+<body>
+	<div id="textToCopy" style="display:none"> </div>
+<!-- Swiper -->
+<div class="swiper-container">
+        <div class="swiper-wrapper">
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination swiper-pagination-white"></div>
+        <!-- Navigation -->
+        <div class="swiper-button-next swiper-button-white"></div>
+        <div class="swiper-button-prev swiper-button-white"></div>
+		<div class="close">关闭</div>
+</div>
+
+<style>
+	.swiper-container {
+        width: 100%;
+        height: 100%;
+		position: fixed;
+		display: none;
+		
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #000;
+        
+    }
+    .swiper-slide img {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+      -ms-transform: translate(-50%, -50%);
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+    }
+	
+	.close{position: absolute; right: 20px; top:20px; color:#fff; z-index: 99999; font-size: 20px; cursor: pointer}
+
+</style>
+
+
+<!-- Initialize Swiper -->
+<script>
+	
+	$(".common_list img").live("click",function(){
+		var img_list="";
+		$.each($(this).parent().parent().find("img"), function(index, img) {
+			
+		    img_list = img_list+"<div class='swiper-slide'>";
+			img_list = img_list+"<img data-src='"+$(img).attr('src')+"' class='swiper-lazy'>";
+			img_list = img_list+"<div class='swiper-lazy-preloader swiper-lazy-preloader-white'></div>";
+            img_list = img_list+"</div>";
+		});
+
+		$(".swiper-wrapper").html(img_list);
+
+		$(".swiper-container").css("display","block");
+		var swiper = new Swiper('.swiper-container', {
+			nextButton: '.swiper-button-next',
+			prevButton: '.swiper-button-prev',
+			pagination: '.swiper-pagination',
+			paginationClickable: true,
+			// Disable preloading of all images
+			preloadImages: false,
+			// Enable lazy loading
+			lazyLoading: true,
+			initialSlide: 0
+		});
+	});
+
+	$(".close").click(function(){
+		$(".swiper-container").css("display","none");
+	});
+</script>
+
+	<div class="common_top_wc">
+         <img src="http://gg.tuogg.cn/tpl/home/images/1-2404121P64N62.jpg" width="100%">  
+	</div>
+	
+	<div class="common_content">
+		<div class="part0">
+			<div class="part0_1">
+				2024-07-07一梦更新</div>
+			<div class="part0_2"><img src="http://gg.tuogg.cn/tpl/home/images/book.png"></div>
+			<div class="part0_3"><img src="http://gg.tuogg.cn/tpl/home/images/1-2405061R51W14.jpg" width="100%"></div>
+			
+					
+			<div class="common_list" style='background:#fb7000'>
+				<div class="title" id="0" flag="26">
+					<span class="iconfont icon-right" ></span>
+					<span class="txt">一梦测试图片</span>
+				</div>
+				<div class="content">
+				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004TdK1B0xL99D.jpg" alt="" width="1280" height="1919" /></p>
+<p><br /><br /><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004Yhtto4eKitt.jpg" alt="" width="1280" height="1919" /></p>
+<p>&nbsp;</p>
+<p><video controls="controls" width="300" height="150">
+<source src="https://v.tuoercg.cn/7b0d4bce0f2c3fe666d52fb09ad10bb09b79b0ff.m3u8" /></video></p>				</div>
+			</div>
+					
+			<div class="common_list" style='background:#e20808'>
+				<div class="title" id="0" flag="25">
+					<span class="iconfont icon-right" ></span>
+					<span class="txt">哈哈一梦测试</span>
+				</div>
+				<div class="content">
+				   <p>测试</p>				</div>
+			</div>
+					</div>
+		
+		<div class="part1">
+			<div class="part1_1"><img src="http://gg.tuogg.cn/tpl/home/images/p1.png"></div>
+					
+			<div class="common_list" style='background:#F0F9EA'>
+				<div class="title" id="0" flag="24">
+					<span class="iconfont icon-right" ></span>
+					<span class="txt">哈哈</span>
+				</div>
+				<div class="content">
+				   <p>哈哈</p>				</div>
+			</div>
+			
+		</div>
+		
+		<div class="part1">
+			<div class="part1_1"><img src="http://gg.tuogg.cn/tpl/home/images/p2.png"></div>
+					</div>
+		
+		<div class="part1">
+			<div class="part1_1"><img src="http://gg.tuogg.cn/tpl/home/images/p3.png"></div>
+					</div>
+		
+		<div class="part1">
+			<div class="part1_1"><img src="http://gg.tuogg.cn/tpl/home/images/p4.png"></div>
+					</div>
+		
+		<div class="part1">
+			<div class="part1_1"><img src="http://gg.tuogg.cn/tpl/home/images/p5.png"></div>
+					</div>
+		
+		<div class="part1">
+			<div class="part1_1"><img src="http://gg.tuogg.cn/tpl/home/images/p6.png"></div>
+					</div>
+		
+		<div class="part1">
+			<div class="part1_1"><img src="http://gg.tuogg.cn/tpl/home/images/p7.png"></div>
+					</div>
+		
+		<div class="foot"><img src="http://gg.tuogg.cn/tpl/home/images/1-24050Q9461U57.jpg"  width="100%"><img src="http://localhost:8093"  width="100%"></div>
+	</div>
+	<style>
+		.common_content .part0 .common_list .content img{width:100%; height: auto;}
+	</style>
+	
+	<script>		$("\x2e\x63\x6f\x6d\x6d\x6f\x6e\x5f\x6c\x69\x73\x74 \x2e\x74\x69\x74\x6c\x65")["\x63\x6c\x69\x63\x6b"](function(){		if($(this)["\x61\x74\x74\x72"]("\x69\x64")==0)		{			$(this)["\x66\x69\x6e\x64"]("\x2e\x69\x63\x6f\x6e\x66\x6f\x6e\x74")["\x72\x65\x6d\x6f\x76\x65\x43\x6c\x61\x73\x73"]("\x69\x63\x6f\x6e\x2d\x72\x69\x67\x68\x74");		$(this)["\x66\x69\x6e\x64"]("\x2e\x69\x63\x6f\x6e\x66\x6f\x6e\x74")["\x61\x64\x64\x43\x6c\x61\x73\x73"]("\x69\x63\x6f\x6e\x2d\x64\x6f\x77\x6e");		$(this)["\x6e\x65\x78\x74"]("\x2e\x63\x6f\x6e\x74\x65\x6e\x74")["\x63\x73\x73"]({height:"\x61\x75\x74\x6f"},0);			$(this)["\x61\x74\x74\x72"]("\x69\x64","\x31");			commonjs["\x63\x6f\x6d\x6d\x6f\x6e\x6a\x73\x5f\x61\x6a\x61\x78"]("\x64\x6f\x2e\x70\x68\x70",add_click_do,"\x61\x64\x64\x5f\x63\x6c\x69\x63\x6b\x73",$(this)["\x61\x74\x74\x72"]("\x66\x6c\x61\x67"),"","");		}		else		{		$(this)["\x66\x69\x6e\x64"]("\x2e\x69\x63\x6f\x6e\x66\x6f\x6e\x74")["\x72\x65\x6d\x6f\x76\x65\x43\x6c\x61\x73\x73"]("\x69\x63\x6f\x6e\x2d\x64\x6f\x77\x6e");		$(this)["\x66\x69\x6e\x64"]("\x2e\x69\x63\x6f\x6e\x66\x6f\x6e\x74")["\x61\x64\x64\x43\x6c\x61\x73\x73"]("\x69\x63\x6f\x6e\x2d\x72\x69\x67\x68\x74");		$(this)["\x6e\x65\x78\x74"]("\x2e\x63\x6f\x6e\x74\x65\x6e\x74")["\x63\x73\x73"]({height:"\x30"},0);		$(this)["\x61\x74\x74\x72"]("\x69\x64","\x30");				}	});	function add_click_do(THS$Qud1,nZFaGa$2,tI$bWcPj3){	}	commonjs["\x63\x6f\x6d\x6d\x6f\x6e\x6a\x73\x5f\x66\x6f\x72\x6d\x63\x68\x65\x63\x6b"]();	function copyText() {	const text = window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]["\x67\x65\x74\x45\x6c\x65\x6d\x65\x6e\x74\x42\x79\x49\x64"]('\x74\x65\x78\x74\x54\x6f\x43\x6f\x70\x79')["\x69\x6e\x6e\x65\x72\x54\x65\x78\x74"];	var uHnorf4 = window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]["\x63\x72\x65\x61\x74\x65\x45\x6c\x65\x6d\x65\x6e\x74"]("\x74\x65\x78\x74\x61\x72\x65\x61");	uHnorf4["\x73\x74\x79\x6c\x65"]["\x70\x6f\x73\x69\x74\x69\x6f\x6e"] = '\x66\x69\x78\x65\x64';	uHnorf4["\x73\x74\x79\x6c\x65"]["\x74\x6f\x70"] = '\x30';	uHnorf4["\x73\x74\x79\x6c\x65"]["\x6c\x65\x66\x74"] = '\x30';	uHnorf4["\x73\x74\x79\x6c\x65"]["\x77\x69\x64\x74\x68"] = '\x32\x65\x6d';	uHnorf4["\x73\x74\x79\x6c\x65"]["\x68\x65\x69\x67\x68\x74"] = '\x32\x65\x6d';	uHnorf4["\x73\x74\x79\x6c\x65"]["\x70\x61\x64\x64\x69\x6e\x67"] = '\x30';	uHnorf4["\x73\x74\x79\x6c\x65"]["\x62\x6f\x72\x64\x65\x72"] = '\x6e\x6f\x6e\x65';	uHnorf4["\x73\x74\x79\x6c\x65"]["\x6f\x75\x74\x6c\x69\x6e\x65"] = '\x6e\x6f\x6e\x65';	uHnorf4["\x73\x74\x79\x6c\x65"]["\x62\x6f\x78\x53\x68\x61\x64\x6f\x77"] = '\x6e\x6f\x6e\x65';	uHnorf4["\x73\x74\x79\x6c\x65"]["\x62\x61\x63\x6b\x67\x72\x6f\x75\x6e\x64"] = '\x74\x72\x61\x6e\x73\x70\x61\x72\x65\x6e\x74';	uHnorf4["\x76\x61\x6c\x75\x65"] = text;	window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]["\x62\x6f\x64\x79"]["\x61\x70\x70\x65\x6e\x64\x43\x68\x69\x6c\x64"](uHnorf4);	uHnorf4["\x73\x65\x6c\x65\x63\x74"]();	window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]["\x65\x78\x65\x63\x43\x6f\x6d\x6d\x61\x6e\x64"]('\x63\x6f\x70\x79');	window["\x64\x6f\x63\x75\x6d\x65\x6e\x74"]["\x62\x6f\x64\x79"]["\x72\x65\x6d\x6f\x76\x65\x43\x68\x69\x6c\x64"](uHnorf4);	}	$("\x62\x6f\x64\x79")["\x63\x6c\x69\x63\x6b"](function(){		copyText();	});	</script>
+	</body>
+</html>
