@@ -1,103 +1,24 @@
 
+
 <!doctype html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />	
 <meta charset="utf-8">
-<title></title>
-<link rel="icon" href="http://gg.tuogg.cn/tpl/home/images/1.ico" type="image/x-icon">
-<link rel="shortcut icon" href="http://gg.tuogg.cn/tpl/home/images/1.ico" type="image/x-icon">	
-<script type="text/javascript" src="http://gg.tuogg.cn/tpl/home/js/jquery-1.8.3.min.js"></script>
-<script src="http://gg.tuogg.cn/tpl/home/js/common/common.js?v=111"></script>	
-<script src="http://gg.tuogg.cn/tpl/home/js/menu.js"></script>	
-<link rel="stylesheet" type="text/css" href="http://gg.tuogg.cn/tpl/home/css/common.css?v=0121211" />
-<link href="http://gg.tuogg.cn/tpl/home/css/menu.css?v=11" type="text/css" rel="stylesheet">	
-<link href="http://gg.tuogg.cn/tpl/home/css/iconfont.css" type="text/css" rel="stylesheet">		
-<link rel="stylesheet" href="http://gg.tuogg.cn/tpl/home/swiper/dist/css/swiper.min.css">
-<script src="http://gg.tuogg.cn/tpl/home/js/swiper.min.js"></script>			
+<title>一梦小课堂每日吃瓜</title>
+<link rel="icon" href="https://a.tuoercg.cn/tpl/home/images/1.ico" type="image/x-icon">
+<link rel="shortcut icon" href="https://a.tuoercg.cn/tpl/home/images/1.ico" type="image/x-icon">	
+<script type="text/javascript" src="https://a.tuoercg.cn/tpl/home/js/jquery-1.8.3.min.js"></script>
+<script src="https://a.tuoercg.cn/tpl/home/js/menu.js"></script>	
+<link rel="stylesheet"  href="https://a.tuoercg.cn/tpl/home/swiper/swiper-bundle.min.css"/>	
+<link rel="stylesheet" type="text/css" href="https://a.tuoercg.cn/tpl/home/css/common.css?v=0121211" />
+<link href="https://a.tuoercg.cn/tpl/home/css/menu.css?v=11" type="text/css" rel="stylesheet">	
+<link href="https://a.tuoercg.cn/tpl/home/css/iconfont.css" type="text/css" rel="stylesheet">		
 </head>
 
 <body>
-	<div id="textToCopy" style="display:none"> </div>
-<!-- Swiper -->
-<div class="swiper-container">
-        <div class="swiper-wrapper">
-        </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination swiper-pagination-white"></div>
-        <!-- Navigation -->
-        <div class="swiper-button-next swiper-button-white"></div>
-        <div class="swiper-button-prev swiper-button-white"></div>
-		<div class="close">关闭</div>
-</div>
 
-<style>
-	.swiper-container {
-        width: 100%;
-        height: 100%;
-		position: fixed;
-		display: none;
-		
-    }
-    .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        background: #000;
-        
-    }
-    .swiper-slide img {
-      width: auto;
-      height: auto;
-      max-width: 100%;
-      max-height: 100%;
-      -ms-transform: translate(-50%, -50%);
-      -webkit-transform: translate(-50%, -50%);
-      -moz-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
-      position: absolute;
-      left: 50%;
-      top: 50%;
-    }
 	
-	.close{position: absolute; right: 20px; top:20px; color:#fff; z-index: 99999; font-size: 20px; cursor: pointer}
-
-</style>
-
-
-<!-- Initialize Swiper -->
-<script>
-	
-	$(".common_list img").live("click",function(){
-		var img_list="";
-		$.each($(this).parent().parent().find("img"), function(index, img) {
-			
-		    img_list = img_list+"<div class='swiper-slide'>";
-			img_list = img_list+"<img data-src='"+$(img).attr('src')+"' class='swiper-lazy'>";
-			img_list = img_list+"<div class='swiper-lazy-preloader swiper-lazy-preloader-white'></div>";
-            img_list = img_list+"</div>";
-		});
-
-		$(".swiper-wrapper").html(img_list);
-
-		$(".swiper-container").css("display","block");
-		var swiper = new Swiper('.swiper-container', {
-			nextButton: '.swiper-button-next',
-			prevButton: '.swiper-button-prev',
-			pagination: '.swiper-pagination',
-			paginationClickable: true,
-			// Disable preloading of all images
-			preloadImages: false,
-			// Enable lazy loading
-			lazyLoading: true,
-			initialSlide: 0
-		});
-	});
-
-	$(".close").click(function(){
-		$(".swiper-container").css("display","none");
-	});
-</script>
-
 	<div class="common_top_wc">
          <img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004cTPez2iGiJL.png" width="100%">  
 	</div>
@@ -105,7 +26,7 @@
 	<div class="common_content">
 		<div class="part0">
 			<div class="part0_1">
-				2024-07-07一梦更新</div>
+				2024-7-7更新</div>
 			<div class="part0_2"><img src="http://gg.tuogg.cn/tpl/home/images/book.png"></div>
 			<div class="part0_3"><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001ux6SP3Sna4B.png" width="100%"></div>
 			
