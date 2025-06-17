@@ -1,482 +1,409 @@
 
-<!doctype html>
-<html>
+
+<!DOCTYPE html>
+<html lang="zh">
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />	
-<meta charset="utf-8">
-<title>一梦小课堂每日吃瓜</title>
-<link rel="icon" href="https://a.tuoercg.cn/tpl/home/images/1.ico" type="image/x-icon">
-<link rel="shortcut icon" href="https://a.tuoercg.cn/tpl/home/images/1.ico" type="image/x-icon">	
-<script type="text/javascript" src="https://a.tuoercg.cn/tpl/home/js/jquery-1.8.3.min.js"></script>
-<script src="https://a.tuoercg.cn/tpl/home/js/menu.js"></script>	
-<link rel="stylesheet"  href="https://a.tuoercg.cn/tpl/home/swiper/swiper-bundle.min.css"/>	
-<link rel="stylesheet" type="text/css" href="https://a.tuoercg.cn/tpl/home/css/common.css?v=0121211" />
-<link href="https://a.tuoercg.cn/tpl/home/css/menu.css?v=11" type="text/css" rel="stylesheet">	
-<link href="https://a.tuoercg.cn/tpl/home/css/iconfont.css" type="text/css" rel="stylesheet">		
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
+    <title></title>
+    <link href="https://web.sdk.qcloud.com/player/tcplayer/release/v4.2.1/tcplayer.min.css" rel="stylesheet">
+    <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.2.1/libs/hls.min.0.13.2m.js"></script>
+    <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.0/tcplayer.v4.5.0.min.js"></script>
+    <script src="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/limonte-sweetalert2/11.4.4/sweetalert2.all.min.js"></script>
+    <link href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            background: black;
+        }
+        #player-container-id {
+            width: 100%;
+            height: calc(100% - 70px);
+        }
+        #baidu-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 40px;
+            padding: 0 20px;
+            background-color: orange;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 16px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        /* 密码弹窗样式 */
+        .modal-overlay {
+            position: fixed;
+            z-index: 999;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #1e1e1e;
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            max-width: 320px;
+            animation: slideUp 0.5s ease-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .modal-header {
+            padding: 10px 0;
+            font-size: 30px;
+            color: #fff;
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+        }
+
+        .modal-tips {
+            width: 100%;
+            padding: 15px 0;
+            color: #ccc;
+            text-align: center;
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 15px;
+            background: #2a2a2a;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+            color: #fff;
+            box-sizing: border-box;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .modal-content button {
+            margin-top: 15px;
+            padding: 12px;
+            width: 100%;
+            background: #01c3ff;
+            color: #333;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            display: block;
+        }
+
+        .modal-error {
+            color: red;
+            margin-top: 8px;
+            font-size: 14px;
+            display: none;
+            width: 100%;
+            text-align: center;
+        }
+
+        .modal-success {
+            color: #16d46b;
+            margin-top: 8px;
+            font-size: 14px;
+            display: none;
+            width: 100%;
+            text-align: center;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* SweetAlert2 自定义样式 */
+        .swal2-container-custom {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 1em !important;
+            overflow-y: hidden !important;
+        }
+
+        .swal2-popup-custom {
+            width: 85vw !important;
+            max-height: 90vh !important;
+            height: auto !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            overflow-y: auto !important;
+            scrollbar-width: thin !important;
+            scrollbar-color: rgba(255, 255, 255, 0.3) transparent !important;
+            position: relative !important;
+        }
+
+        .swal2-popup-custom img {
+            width: 100% !important;
+            height: auto !important;
+            object-fit: contain !important;
+            margin: 0 !important;
+            display: block !important;
+            max-width: 100% !important;
+        }
+
+        .swal2-close-button-custom {
+            position: absolute !important;
+            right: 0 !important;
+            top: 0 !important;
+            z-index: 10 !important;
+            color: #fff !important;
+            background: rgba(0, 0, 0, 0.5) !important;
+            border-radius: 0 0 0 5px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 32px !important;
+            height: 32px !important;
+            font-size: 20px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: background 0.2s ease !important;
+            opacity: 0.8 !important;
+            outline: none !important;
+        }
+
+        .swal2-close-button-custom:hover {
+            background: rgba(0, 0, 0, 0.8) !important;
+            opacity: 1 !important;
+        }
+
+        /* 滚动条样式 */
+        .swal2-popup-custom::-webkit-scrollbar {
+            width: 6px !important;
+            height: 6px !important;
+        }
+
+        .swal2-popup-custom::-webkit-scrollbar-track {
+            background: transparent !important;
+        }
+
+        .swal2-popup-custom::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.3) !important;
+            border-radius: 3px !important;
+        }
+
+        .swal2-image-custom {
+            max-height: none !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 auto !important;
+        }
+
+        /* 弹窗内容自适应调整 */
+        .swal2-content {
+            padding: 0 !important;
+            margin: 0 !important;
+            overflow: visible !important;
+        }
+
+        .swal2-html-container {
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+    </style>
 </head>
-
 <body>
+    <video id="player-container-id" preload="auto" playsinline webkit-playsinline></video>
+    <button id="baidu-button"></button>
 
-	
-	<div class="common_top_wc">
-         <img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004cTPez2iGiJL.png" width="100%">  
-	</div>
-	
-	<div class="common_content">
-		<div class="part0">
-			<div class="part0_1">
-				2024-06-27更新</div>
-			<div class="part0_2"><img src="https://a.tuoercg.cn/tpl/home/images/book.png"></div>
-			<div class="part0_3"><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000049r14l080oFd.jpg" width="100%"></div>
-					</div>
-		
-		<div class="part1">
-			<div class="part1_1"><img src="https://a.tuoercg.cn/tpl/home/images/p1.png"></div>
-					
-			<div class="common_list" style='background:#D0C4E8'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">撒比钓鱼佬 狗捡到骨头都知道跑远点再吃</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002u1V5F3PZpKN.png" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/eec30e7b968251138f2a4c2664d7430d44652a64.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#FDECCD'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">街头打架 白瞎了这把大刀</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004C9cQW3nf4D2.jpg" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/848895305f4236da00915927fb2b06b54b36e67d.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#D0D8DC'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">牛逼，喝死了</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000008NfnZ34ReRQ.jpg" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/677adecb7cd63ddb97a5eb81e94cf794f4e6bbaf.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#D0D8DC'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">群友投稿 停车坐爱枫林晚</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003YIjMv4Zpt2x.png" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/1e8b37ee31ccd99aaf73e6f51b4e15f64c441f8f.m3u8" /></video></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/165a920c70c258f31d0c29cd8b1906cdd77932b1.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:# D0D8DC'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">逆天短剧，越来越离谱了。该整顿一下了</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003AFfda0QfMuo.png" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/516bb60fde9cb21742154e261d354ecece032d33.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#B6E7FB'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">炸裂 用山药自W #聊天记录</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004KkSw83ZYANQ.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002Sa4Rp41OxnW.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003ZL4cm0koD9a.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000016iKtB2oEy9S.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001a9BvP1LzN7G.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004QDsA52dw3IQ.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000ugHdf31VwFa.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004DJZhQ4FdOGj.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003dDBVA0Z0T7z.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001XgNU60UdCDY.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000022Py7f0o7ZJ6.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000ykHih0Rr0HA.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000Y3tAQ1DMKbU.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000pA6ZS2pFjaH.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000004GKOL2lKIig.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004EsiC02WGsSq.jpg" /></p>
-<p>&nbsp;</p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#D0D8DC'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">以前PC嫌贵 都说你 镶上钻了，TM的 还真的有</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000015sUlY1VluDh.png" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/70a0b00ca856924c3d8f94b04bc4946df1378be2.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#B6E7FB'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">有用的小知识又增加了</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004KDE4z01EeAv.png" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/d9d980dc07648fbd14c98b50424054b71b89c0cb.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#B9DEFA'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">群友探店日记 6月22日 晴</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001W9fbR2ijVX8.png" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/0c41f6d3ad6373a5dedab0b941921ec3936f3e5b.m3u8" /></video></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/ac9bd87416b7c135e182c1e2ae1a002d4f63f75e.m3u8" /></video></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/d281fd9d27a6c87bbd8e6a41bf8f9577ce9eec2e.m3u8" /></video></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/faf0a7dd7a2c6556f5b20176d500181de4142201.m3u8" /></video></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/640613b6e970da04e1992d99da530cbf01512858.m3u8" /></video></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/081b3287e2ba8c1f2d57e516416009371718f116.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#B6E7FB'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">想改行当摄影师 了（模特给我钱？还是我给她钱？）</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002guF9j2Ecrm0.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000MbFos0GsOBC.jpg" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/897a986286f9212889e9c29082bfdec6df97dfc9.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#D0D8DC'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">低俗直播每日曝光</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002Pmp5d0Dtriu.png" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/078ce80b972abd5e640b46fccef00a7e4be614f2.m3u8" /></video></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/dc1aa6d8df8a3a260fba284e081e41afd4c60b95.m3u8" /></video></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/d558bf6a5953bea30c419d057f258c3faad48d6b.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#D0D8DC'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">群友女神 阿朱 得到大爷的认可 真烧啊</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003HhWd735yt6S.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001N1q9H42fO4r.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001ZhJx44AsrxD.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002JUe7e4f9qOw.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004fJTHd20UNDM.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004Q2Ohc3nXWBS.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001Y1RrS2BhbYd.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003SOdp833akj3.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004dVv1H3f0IVJ.jpg" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/5042ecb91dc1e7ead4b0ca55a1a5ef51456373f5.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#D0D8DC'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">某保健会所内部培训视频流出 #抓龙筋 科普</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002KN6Fn3XkGeD.png" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001iRR4R0bkNgk.jpg" /></p>
-<p>&nbsp;</p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:# FDECCD'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">现在的年轻人 真开放啊</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000Rpd0w4fInXu.png" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/bd83d1c440dae278d2480405b82f7496a480129e.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:# FDECCD'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">变态男同做任务，哪个群友？</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002fUQTk1I5qdY.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000022kbCH4PgIwp.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004aIzqO39ztLG.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000s77dc3zlgPI.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000uHyYn19s9q3.jpg" /></p>
-<p>&nbsp;</p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#B9DEFA'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">群友投稿 一个跑车获得与女主播1V1视频机会</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000BGF1R24urro.png" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/cee52881cdec698228ae179459ed9ffcc2fa801a.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#F0F9EA'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">辣眼睛，群友与老阿姨的爱情故事</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000UNcEM0ozSX6.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001W8Mqu4YlKRV.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001KsNv51iy7qq.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000W1ris269kAb.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003Flzff0wb0nQ.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000hAKMp1hyfOF.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002U76U73vYn8X.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002SIaWS2D4pVD.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004WufOF2WUawV.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002rJRza2qyZYb.jpg" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/ac9f72a21e76107a9dc620bc9ec424985e8acf58.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#D0C4E8'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">群友投稿 快速相亲 是好女孩吗？</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001aQR0K3t1KrP.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD00000260IgW2vuQwo.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002lAxk021GjuM.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003eHbLI0fSlAL.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000GsSx33VZVMs.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003OhSdD2ci6VS.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000QR5xk36PbWJ.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000008PfGu02loLx.jpg" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/66780617126e513945fae066d53a046ab69e2a26.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#F0F9EA'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">外表正经的s,p,a会所，竟然有这种隐藏服务，城里人真会玩！！</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002dKlNK3MusFo.png" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/b54d6902da08d82afbfdc735172896bc84680d4d.m3u8" /></video></p>				</div>
-			</div>
-			
-		</div>
-		
-		<div class="part1">
-			<div class="part1_1"><img src="https://a.tuoercg.cn/tpl/home/images/p2.png"></div>
-					
-			<div class="common_list" style='background:#B9DEFA'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">俄罗斯索契，一对情侣決定在暴风雨中游泳被卷入海中</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001hwbKG3JHfL9.jpg" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/a81188f980c78baff9276d65f8def7de1bb7504c.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#F0F9EA'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">梯子 碰到了电线，多人 #触电</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003SB2R12RifDk.png" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/0a9275517e6bdd57db22ffab4cf110b2b2cdfae2.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#D0C4E8'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">低俗节目 老头能报名吗？</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002YDI3E32SOdU.png" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/2a590dd6fd760e659465b9aa3002f4c8640c505b.m3u8" /></video></p>				</div>
-			</div>
-					
-			<div class="common_list" style='background:#FDECCD'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">小日子 #虐鸡 #蛋疼 小游戏</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000020gloB3rW9Wi.png" /></p>
-<p><video controls="controls" width="300" height="150">
-<source src="https://v.tuoercg.cn/e98849036d7da637689205f129339ce762ae68a1.m3u8" /></video></p>				</div>
-			</div>
-					</div>
-		
-		<div class="part1">
-			<div class="part1_1"><img src="https://a.tuoercg.cn/tpl/home/images/p3.png"></div>
-					
-			<div class="common_list" style='background:#D0D8DC'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">每日一笑</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002dAxmF4RJzEG.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001azqeD3rOZg4.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002Obj043bmusM.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000015B9RE3xAO9O.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004UDr3Y47SsTI.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002tHOql28WsLa.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000049EZHH1R0xAz.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004F8yuM2lrOlH.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000048RIES4cultV.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000FRMl64WEPwf.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001nGfXj3X7rWO.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001mzuJa2c4nlT.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000xCHJB08L96R.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003XbAg00Wxvzz.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000WIEV71Q9tME.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004KIc8M1icArd.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003SeoxY1RfqP0.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002eS89F49EyrK.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004SPOC84LIgAM.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000wB0OA2BdwjY.jpg" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003NmY7O1yoBNB.jpg" /></p>
-<p>&nbsp;</p>				</div>
-			</div>
-					</div>
-		
-		<div class="part1">
-			<div class="part1_1"><img src="https://a.tuoercg.cn/tpl/home/images/p4.png"></div>
-					
-			<div class="common_list"style='background:#B6E7FB'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">正能量</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002jADLa0D8MhE.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002RE6293UzMWK.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000042CWxg4PxfYr.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000OBknt45zgCT.jpg" alt="" width="1555" height="2331" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001vDx3x06d6tG.jpg" alt="" width="1555" height="2331" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001vV00U2x1Wki.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001OjcLm4dHvH8.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001Z2gol19TS81.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000019BsWr2p6364.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000026qt6J0qBoMK.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000fECoD0J1wcT.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002ZQ2lw3BWYpe.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004dT9l90nm1vC.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001SojjL4MmB86.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002ZBUaX1Ni8lq.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000PXIrf0JCJSA.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003liJ8Y3AdTFZ.jpg" alt="" width="1555" height="1037" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000zzKGs2k1bZR.jpg" alt="" width="1555" height="1037" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002KUmSD37B114.jpg" alt="" width="1555" height="1037" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000048WIJB22Zvel.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002dS5Rj1PcsUy.jpg" alt="" width="1555" height="1037" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001QC6mS25i9Vy.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003EVKvd2EEx8T.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000SCqgh2ZxX5a.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD00000274xIq0V5L2s.jpg" alt="" /></p>				</div>
-			</div>
-					</div>
-		
-		<div class="part1">
-			<div class="part1_1"><img src="https://a.tuoercg.cn/tpl/home/images/p5.png"></div>
-					
-			<div class="common_list" style='background:#D0D8DC'>
-				<div class="title" id="0">
-					<span class="iconfont icon-right" ></span>
-					<span class="txt">每日二次元</span>
-				</div>
-				<div class="content">
-				   <p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004bvl5h470i0h.jpg" alt="" width="1280" height="1856" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD00000120eyL12KMgo.jpg" alt="" width="1152" height="1920" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001PNbrS3ohrXq.jpg" alt="" width="1152" height="1920" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001XaEXR4HIolq.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003Jdbju4FHZMu.jpg" alt="" /></p>
-<p><strong><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000U77FT1BM8hl.jpg" alt="" width="1280" height="1856" /></strong></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000004KZma83KfhpI.jpg" alt="" width="1280" height="1856" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD0000002YNVw1ggLCc.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002vSvoh3rDXF8.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001jCC9L06K3XY.jpg" alt="" width="1280" height="1856" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000001aSi9q3zJ0bk.jpg" alt="" width="1280" height="1856" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002mT9Ut3jjuHO.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000002wBstQ3Lr9w3.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003ej1bD0goDGR.jpg" alt="" /></p>
-<p><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000003QAcvA3IbI7g.jpg" alt="" width="1280" height="1856" /></p>
-<p>&nbsp;</p>				</div>
-			</div>
-					</div>
-		
-		<div class="part1">
-			<div class="part1_1"><img src="https://a.tuoercg.cn/tpl/home/images/p6.png"></div>
-					</div>
-		
-		<div class="part1">
-			<div class="part1_1"><img src="https://a.tuoercg.cn/tpl/home/images/p7.png"></div>
-					</div>
-		
-		<div class="foot"><img src="https://a.tuoercg.cn/tpl/home/images/1-24050Q9461U57.jpg"  width="100%"><img src="https://qqq.gtimg.cn/music/photo_new/T053XD000000mgUkv0ViN9f.jpg"  width="100%"></div>
-	</div>
-	
-	<script>
-	$(".common_list .title").click(function(){
-		if($(this).attr("id")==0)
-		{	
-		$(this).find(".iconfont").removeClass("icon-right");
-		$(this).find(".iconfont").addClass("icon-down");
-		$(this).next(".content").css({height:"auto"},0);	
-		$(this).attr("id","1");	
-		}
-		else
-		{
-		$(this).find(".iconfont").removeClass("icon-down");
-		$(this).find(".iconfont").addClass("icon-right");
-		$(this).next(".content").css({height:"0"},0);
-		$(this).attr("id","0");		
-		}
-	});
-	</script>
+    <div class="modal-overlay" id="passwordModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">🔏 解锁查看</div>
+            <div class="modal-tips"></div>
+            <input type="text" id="passwordInput" autocomplete="off" placeholder="输入密码" inputmode="text" />
+            <div class="modal-error" id="passwordError">密码错误</div>
+            <div class="modal-success" id="passwordSuccess">密码正确</div>
+            <div style="display: flex; gap: 10px; margin-top: 15px; width: 100%;">
+                <button id="unlockBtn" style="flex: 1;">解锁</button>
+                <button id="getPasswordBtn" style="flex: 1;">获取密码</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const localConfig = {
+            // 按钮配置
+            button: {
+                title: "转发=更新的动力", // 页面标题
+                buttonText: "点我进吃瓜群，看更多", // 按钮文本
+                buttonLink: "https://shad.samr.gov.cn/sandstone/sp_data/12bc4c7811c44d4492b7472b27746e28.jpg" // 按钮链接，可以是图片链接
+            },
+            // 视频配置
+            video: {
+                url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/61.92.53.159/1750157158060489849/7da8a2b560f1e775cd5f0664da8c81cb/3.mp4" // 视频链接
+            },
+            // 密码配置
+            password: {
+                enabled:false, // 是否启用密码 true为启动 false为关闭
+                value: "比赛季", // 密码值
+                tip: "请输入密码查看完整内容", // 密码提示文本
+                getPasswordUrl: "https://img20.360buyimg.com/openfeedback/jfs/t1/315329/19/9334/18141/684bf6f5Fbbf040d0/df3884fed854813d.png" // 获取密码的链接
+            }
+        };
+
+        function showImageModal(imageUrl) {
+            if (imageUrl) {
+                Swal.fire({
+                    imageUrl: imageUrl,
+                    imageWidth: '100%',
+                    imageHeight: 'auto',
+                    imageAlt: '图片',
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                    background: '#1e1e1e',
+                    backdrop: 'rgba(0,0,0,0.8)',
+                    width: 'auto',
+                    padding: '0',
+                    heightAuto: true,
+                    scrollbarPadding: false,
+                    customClass: {
+                        container: 'swal2-container-custom',
+                        popup: 'swal2-popup-custom',
+                        closeButton: 'swal2-close-button-custom',
+                        image: 'swal2-image-custom'
+                    },
+                    didOpen: (popup) => {
+                        const popupEl = Swal.getPopup();
+                        if (popupEl) {
+                            popupEl.style.overflowY = 'auto';
+                            
+
+                            const img = popup.querySelector('.swal2-image');
+                            if (img) {
+                                img.onload = function() {
+                                    if (img.scrollHeight > popupEl.clientHeight) {
+                                        popupEl.style.overflowY = 'scroll';
+                                    }
+                                };
+                            }
+
+                            const closeBtn = popup.querySelector('.swal2-close');
+                            if (closeBtn) {
+                                closeBtn.style.position = 'absolute';
+                                closeBtn.style.right = '0';
+                                closeBtn.style.top = '0';
+                            }
+                        }
+                    }
+                });
+            } else {
+                return;
+            }
+        }
+
+        function isVideoUrl(url) {
+            if (!url) return false;
+            const videoExtensions = /\.(mp4|m3u8|webm|mov|avi|wmv|flv|mkv|ts)$/i;
+            return videoExtensions.test(url);
+        }
+
+        function handleVideoUrl(url) {
+            if (isVideoUrl(url)) {
+                const videoElement = document.getElementById("player-container-id");
+                const tcplayer = TCPlayer(videoElement, {
+                    reportable: false,
+                    autoplay: true
+                });
+                
+                tcplayer.src(url);
+            } else {
+                window.location.href = url;
+            }
+        }
+
+        (function() {
+            try {
+                const buttonLink = localConfig.button.buttonLink;
+                
+                if (localConfig.button.title) document.title = localConfig.button.title;
+
+                const buttonElement = document.getElementById('baidu-button');
+                if (buttonElement) {
+                    buttonElement.textContent = localConfig.button.buttonText || '';
+                    buttonElement.onclick = () => showImageModal(buttonLink);
+                }
+
+                const videoUrl = localConfig.video.url;
+                
+                if (!localConfig.password.enabled) {
+                    handleVideoUrl(videoUrl);
+                } else {
+                    document.querySelector('.modal-tips').innerHTML = localConfig.password.tip || '';
+
+                    window.checkPassword = function(pwd) {
+                        if (pwd === localConfig.password.value) {
+                            document.getElementById("passwordSuccess").style.display = 'block';
+                            setTimeout(() => {
+                                hidePasswordModal();
+                                handleVideoUrl(videoUrl);
+                            }, 500);
+                        } else {
+                            document.getElementById("passwordError").style.display = 'block';
+                            setTimeout(() => {
+                                document.getElementById("passwordError").style.display = 'none';
+                            }, 2000);
+                        }
+                    };
+
+                    document.getElementById("getPasswordBtn").onclick = function() {
+                        showImageModal(localConfig.password.getPasswordUrl);
+                    };
+
+                    showPasswordModal();
+                }
+
+            } catch (error) {
+                return; 
+            }
+        })();
+
+        function showPasswordModal() {
+            document.getElementById('passwordModal').style.display = 'flex';
+        }
+
+        function hidePasswordModal() {
+            document.getElementById('passwordModal').style.display = 'none';
+        }
+
+        document.getElementById("unlockBtn").addEventListener('click', function() {
+            const pwd = document.getElementById("passwordInput").value;
+            checkPassword(pwd);
+        });
+    </script>
 </body>
 </html>
