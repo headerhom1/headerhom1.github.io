@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>6.17合集</title>
+  <link href="https://web.sdk.qcloud.com/player/tcplayer/release/v4.2.1/tcplayer.min.css" rel="stylesheet" />
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.2.1/libs/hls.min.0.13.2m.js"></script>
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.0/tcplayer.v4.5.0.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #e0f7ff, #ffffff);
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      color: #111;
+      margin-bottom: 30px;
+    }
+
+    .video-block {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      margin-bottom: 30px;
+    }
+
+    .video-title {
+      display: block;
+      background: #0094ff;
+      color: white;
+      padding: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-align: left; /* 修改为靠左对齐 */
+    }
+
+    .video-title:hover {
+      background: #0079cc;
+    }
+
+    .tcplayer-container {
+      display: none;
+      width: 100%;
+      height: 580px;
+      max-width: 1080px;
+      margin: 20px auto;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .jump-btn {
+      display: none;
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background-color: #ff6a00;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .jump-btn:hover {
+      background-color: #e85c00;
+    }
+  </style>
+</head>
+<body>
+  <h1>6.16合集</h1>
+  <div id="content">加载中...</div>
+
+  <script>
+    const players = [];
+    let currentPlayingIndex = null;
+
+    function getLocalData() {
+      return {
+        data_mp4: [
+          { title: "吃🍉久违的同学聚会，老一辈除了思想保守 其余一切都还是挺开放的", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/115.61.70.130/1750520457602593895/4ff0fcb9247e262b81a93bda2f8aa3bd/1.mp4" },
+          { title: "吃🍉江苏一女子为挽留黑人男友 哭着喊爸爸", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/115.61.70.130/1750520536678978254/cd03b34e4a2cc2adb6f11b7aaee4de9e/2.mp4" },
+          { title: "吃🍉精神小伙与精神小妹的爱情", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/115.61.70.130/1750520620602171287/645270ba6fc65339f3c1fb53fe2e15e4/3.mp4" },
+          { title: "吃🍉妹子经历了什么？", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/115.61.70.130/1750520651889739091/56aa144cbf143d75460624ca8fc7b532/4.mp4" },
+          { title: "吃🍉加急单的上门服务？？", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/115.61.70.130/1750520654626229925/5ddf12fbb6fbf1dc55b5d437d7ab3715/5.mp4" },
+          { title: "吃🍉反差婊 纹身嫩妹 ", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/115.61.70.130/1750520674802590227/033ef63b13002b4b9f6a2e317a9559a4/6.mp4" },
+          { title: "吃🍉羡慕退休大爷每一天.把玩黑丝美脚", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/115.61.70.130/1750520677366601682/40ff6cc8558a1ed34d07ce6f48b57da1/7.mp4" },
+          { title: "吃🍉你老婆参加同学聚会的样子 搔🐔", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/115.61.70.130/1750520699068138782/9cab4b1b1de0d65e02f0d5624f48e158/8.mp4" },
+          { title: "吃🍉 城管被打 6月19日“摊贩挥了一拳，城管人员倒地", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/115.61.70.130/1750520701510356293/0731d41c1f08b82d1fe43c89fa63c2da/9.mp4" },
+          { title: "吃🍉19日下午 台湾 彰化 ...弯弯都这么勇的吗？ #抢劫 ", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/115.61.70.130/1750520720924263986/db6e03ae003f77948c5da56ae2b301d6/10.mp4" },
+          { title: "吃🍉握草狠人😂", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/115.61.70.130/1750520723158469413/8669edc2218c4212c37556b3c00ed12e/11.mp4" },
+          { title: "吃🍉今天就到这吧，晚安", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/115.61.70.130/1750520725757387767/cb9ffe5ebe6630a45f170b69fd4c19ba/12.mp4" }
+        ],
+        btn_text: '加入吃瓜微信群',
+        btn_link: 'https://shad.samr.gov.cn/sandstone/sp_data/12bc4c7811c44d4492b7472b27746e28.jpg',
+        title: '6.21合集'
+      };
+    }
+
+    async function loadVideos() {
+      const data = getLocalData();
+      document.title = data.title;
+
+      const container = document.getElementById('content');
+      container.innerHTML = '';
+
+      data.data_mp4.forEach((item, index) => {
+        const videoId = "tcplayer-container-" + index;
+        const block = document.createElement('div');
+        block.className = 'video-block';
+        block.innerHTML = `
+          <span class="video-title" data-index="${index}">${index + 1}. ${item.title}</span>
+          <video id="${videoId}" class="tcplayer-container" preload="auto" playsinline webkit-playsinline></video>
+          <button class="jump-btn">${data.btn_text}</button>
+        `;
+        container.appendChild(block);
+
+        const jumpBtn = block.querySelector('.jump-btn');
+        jumpBtn.onclick = () => window.location.href = data.btn_link;
+
+        setTimeout(() => {
+          const player = TCPlayer(videoId, { reportable: false });
+          player.src(item.url);
+          player.pause();
+          players[index] = player;
+        }, 0);
+      });
+
+      document.querySelectorAll('.video-title').forEach(titleElem => {
+        titleElem.addEventListener('click', function () {
+          const index = parseInt(this.getAttribute('data-index'));
+          if (currentPlayingIndex === index) return;
+
+          if (currentPlayingIndex !== null) {
+            const prevVideoElem = document.getElementById("tcplayer-container-" + currentPlayingIndex);
+            if (prevVideoElem) prevVideoElem.style.display = 'none';
+            const prevBlock = prevVideoElem?.parentElement;
+            prevBlock?.querySelector('.jump-btn')?.style.setProperty('display', 'none');
+            players[currentPlayingIndex]?.pause();
+          }
+
+          const currentVideoElem = document.getElementById("tcplayer-container-" + index);
+          currentVideoElem.style.display = 'block';
+          const currentBlock = this.parentElement;
+          currentBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          currentBlock.querySelector('.jump-btn').style.display = 'block';
+          players[index]?.play();
+          currentPlayingIndex = index;
+        });
+      });
+    }
+
+    loadVideos();
+  </script>
+</body>
+</html>
