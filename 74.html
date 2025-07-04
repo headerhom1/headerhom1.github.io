@@ -1,0 +1,170 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>7.4合集</title>
+  <link href="https://web.sdk.qcloud.com/player/tcplayer/release/v4.2.1/tcplayer.min.css" rel="stylesheet" />
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.2.1/libs/hls.min.0.13.2m.js"></script>
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.0/tcplayer.v4.5.0.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #e0f7ff, #ffffff);
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      color: #111;
+      margin-bottom: 30px;
+    }
+
+    .video-block {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      margin-bottom: 30px;
+    }
+
+    .video-title {
+      display: block;
+      background: #0094ff;
+      color: white;
+      padding: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-align: left; /* 修改为靠左对齐 */
+    }
+
+    .video-title:hover {
+      background: #0079cc;
+    }
+
+    .tcplayer-container {
+      display: none;
+      width: 100%;
+      height: 580px;
+      max-width: 1080px;
+      margin: 20px auto;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .jump-btn {
+      display: none;
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      background-color: #ff6a00;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .jump-btn:hover {
+      background-color: #e85c00;
+    }
+  </style>
+</head>
+<body>
+  <h1>7.4合集</h1>
+  <div id="content">加载中...</div>
+
+  <script>
+    const players = [];
+    let currentPlayingIndex = null;
+
+    function getLocalData() {
+      return {
+        data_mp4: [
+          { title: "吃🍉哪位 #二次元 群友 😑 藏品 暴露了.", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/61.92.53.159/1751622763041775602/ce621081fb5acfd06c09bbce5c8375a1/1.mp4" },
+          { title: "吃🍉帅不过十秒 ", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/61.92.53.159/1751622773928916265/a74d356f9d5aaea553f45195a3c5d8a2/2.mp4" },
+          { title: "吃🍉暴躁集美.什么情况？", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/61.92.53.159/1751622790739925078/1465ad41c9a2b336a007434d86113ac9/3.mp4" },
+          { title: "吃🍉猎奇，这绝对是极品母狗啊，塞这么大的跳蛋 ", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/61.92.53.159/1751622781976115131/964e17b4af11599ced4e66beee1f3f7c/4.mp4" },
+          { title: "吃🍉猎奇 三奶少妇 ", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/61.92.53.159/1751622791657905446/015f19e71d3f7fc06f02a37cab9cd390/5.mp4" },
+          { title: "吃🍉这个工作好，教练真男人，鼻血都流出来了", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/61.92.53.159/1751622809090005554/d10ab2d921cafb6b7822c633337fa887/6.mp4" },
+          { title: "吃🍉游泳池里的女生被袭击.", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/61.92.53.159/1751622815055239919/f99f5af7ebfc158f864ef15eb9adcd46/7.mp4" },
+          { title: "吃🍉光头 #男娘 带个假发应该好看点了 ", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/61.92.53.159/1751622808802236169/305903a7e1990bc65015b4cbb18d1ee0/8.mp4" },
+          { title: "吃🍉熊孩子让开，猥亵", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/61.92.53.159/1751622812341173657/36e649c0a09d51cf58b61b250e64e798/9.mp4" },
+          { title: "吃🍉一位老变态拿🐔🎱顶穿着短裤的女人 ", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/61.92.53.159/1751622804224891166/b2c4c640bf55fc8f22983dadfc61d15b/10.mp4" },
+          { title: "吃🍉男同.gay!🤮辣眼睛.", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/61.92.53.159/1751622818785488622/d27e0dc4e2930454e739df2826c4c072/11.mp4" },
+          { title: "吃🍉这种熟女最是喜欢了", url: "https://coscdn.myjujing.com/cvd/customer/fileUploadv2/61.92.53.159/1751622833900051594/eb9698d3d08aff72d911ea7603fe02eb/12.mp4" }
+        ],
+        btn_text: '加入吃瓜微信群',
+        btn_link: 'https://p.iqun.qq.com/web/msg/202572/1c01b67f-6b9b-40a2-b985-2f4b0158255a-1751464908353.jpg',
+        title: '7.4合集'
+      };
+    }
+
+    async function loadVideos() {
+      const data = getLocalData();
+      document.title = data.title;
+
+      const container = document.getElementById('content');
+      container.innerHTML = '';
+
+      data.data_mp4.forEach((item, index) => {
+        const videoId = "tcplayer-container-" + index;
+        const block = document.createElement('div');
+        block.className = 'video-block';
+        block.innerHTML = `
+          <span class="video-title" data-index="${index}">${index + 1}. ${item.title}</span>
+          <video id="${videoId}" class="tcplayer-container" preload="auto" playsinline webkit-playsinline></video>
+          <button class="jump-btn">${data.btn_text}</button>
+        `;
+        container.appendChild(block);
+
+        const jumpBtn = block.querySelector('.jump-btn');
+        jumpBtn.onclick = () => window.location.href = data.btn_link;
+
+        setTimeout(() => {
+          const player = TCPlayer(videoId, { reportable: false });
+          player.src(item.url);
+          player.pause();
+          players[index] = player;
+        }, 0);
+      });
+
+      document.querySelectorAll('.video-title').forEach(titleElem => {
+        titleElem.addEventListener('click', function () {
+          const index = parseInt(this.getAttribute('data-index'));
+          if (currentPlayingIndex === index) return;
+
+          if (currentPlayingIndex !== null) {
+            const prevVideoElem = document.getElementById("tcplayer-container-" + currentPlayingIndex);
+            if (prevVideoElem) prevVideoElem.style.display = 'none';
+            const prevBlock = prevVideoElem?.parentElement;
+            prevBlock?.querySelector('.jump-btn')?.style.setProperty('display', 'none');
+            players[currentPlayingIndex]?.pause();
+          }
+
+          const currentVideoElem = document.getElementById("tcplayer-container-" + index);
+          currentVideoElem.style.display = 'block';
+          const currentBlock = this.parentElement;
+          currentBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          currentBlock.querySelector('.jump-btn').style.display = 'block';
+          players[index]?.play();
+          currentPlayingIndex = index;
+        });
+      });
+    }
+
+    loadVideos();
+  </script>
+</body>
+</html>
